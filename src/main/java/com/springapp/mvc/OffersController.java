@@ -7,10 +7,15 @@ import com.springapp.service.OffersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 
+
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -39,14 +44,19 @@ public class OffersController {
 
 
 	@RequestMapping("/createoffer")
-	public String createOffer() {
-
+	public String createOffer(Model model) {
+		model.addAttribute("offer",new Offer());
 		return "createoffer";
 	}
 
-	@RequestMapping("/docreate")
-	public String doCreate() {
+	@RequestMapping(value="/docreate", method = RequestMethod.POST)
+	public String doCreate(Model model, @Valid Offer offer, BindingResult bindingResult) {
 
+		if (bindingResult.hasErrors()){
+			return "createoffer";
+		}
+
+		System.out.println(offer);
 		return "offercreated";
 	}
 

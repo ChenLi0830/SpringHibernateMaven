@@ -18,7 +18,7 @@
 
 
     <mvc:annotation-driven></mvc:annotation-driven>
-
+    <mvc:resources mapping="/static/**" location="/resources/"></mvc:resources>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsps/"/>
