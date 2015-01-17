@@ -29,3 +29,9 @@ textarea {
     font-size: small;
     color:red;
 }
+
+table.offers{
+    padding: 10px
+    /*border-color: cornflowerblue;*/
+    /*table-border-color-dark: 10px;*/
+}

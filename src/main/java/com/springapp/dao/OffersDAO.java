@@ -16,16 +16,12 @@ public class OffersDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-
-
 	public List<Offer> getOffers() {
 		return sessionFactory.openSession().createCriteria(Offer.class).list();
 	}
 
 
 	public void saveOrUpdate(Offer offer) {
-//		Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-//		sessionFactory.getCurrentSession().
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		session.save(offer);
@@ -33,4 +29,11 @@ public class OffersDAO {
 		session.close();
 	}
 
+	public Offer getOffer(int id){
+		Session session = sessionFactory.openSession();
+		Offer offer = (Offer) session.get(Offer.class,id);
+		session.close();
+		return offer;
+
+	}
 }

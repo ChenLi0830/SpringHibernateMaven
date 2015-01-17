@@ -17,7 +17,6 @@ public class Offer {
 	private String name;
 
 	@NotNull
-//	@Pattern(regexp = ".*\\@.*\\..*", message = "This does not appear to be a valid email address.")//必须是xxx@xxx.xxx
 	@Email(message = "Sorry, this does not appear to be a valid email address.")
 	private String email;
 
