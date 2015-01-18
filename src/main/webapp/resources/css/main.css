@@ -31,7 +31,8 @@ textarea {
 }
 
 table.offers{
-    padding: 10px
+    padding: 10px;
+    color:green;
     /*border-color: cornflowerblue;*/
     /*table-border-color-dark: 10px;*/
 }
