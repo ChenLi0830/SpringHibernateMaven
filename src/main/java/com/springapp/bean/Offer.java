@@ -23,25 +23,25 @@ public class Offer {
 	@Size(min = 20,max = 255, message = "Text must be between 20 and 255 characters")
 	private String text;
 
-//	public Offer() {
-//
-//	}
-//
-//	public Offer(String name, String email, String text) {
-//		this.name = name;
-//		this.email = email;
-//		this.text = text;
-//	}
-//
-//
-//
-//	public Offer(int id, String name, String email, String text) {
-//		super();
-//		this.id = id;
-//		this.name = name;
-//		this.email = email;
-//		this.text = text;
-//	}
+	public Offer() {
+
+	}
+
+	public Offer(String name, String email, String text) {
+		this.name = name;
+		this.email = email;
+		this.text = text;
+	}
+
+
+
+	public Offer(int id, String name, String email, String text) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.text = text;
+	}
 
 	public int getId() {
 		return id;

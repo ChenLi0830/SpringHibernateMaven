@@ -36,3 +36,7 @@ table.offers{
     /*border-color: cornflowerblue;*/
     /*table-border-color-dark: 10px;*/
 }
+
+p.loginerror{
+    color:red;
+}

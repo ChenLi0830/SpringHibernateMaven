@@ -2,14 +2,11 @@ package com.springapp.controller;
 
 import com.springapp.bean.Offer;
 import com.springapp.dao.OffersDAO;
-import com.springapp.dao.UserDetailsDao;
 import com.springapp.service.OffersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,47 +18,70 @@ import java.util.List;
 
 @Controller
 public class OffersController {
-	@Autowired
-	private UserDetailsDao userDetailsDao;
-	@Autowired
-	private OffersDAO offersDAO;
-	@Autowired
-	private OffersService offersService;
+    @Autowired
+    private OffersDAO offersDAO;
+    @Autowired
+    private OffersService offersService;
 
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String showTest(ModelMap model, @RequestParam("id") String id) {
-		System.out.println("Id is:" + id);
-		return "home";
-	}
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String showTest(ModelMap model, @RequestParam("id") String id) {
+        System.out.println("Id is:" + id);
+        return "home";
+    }
 
-	@RequestMapping("/offers")
-	public String printWelcome(ModelMap model) {
-		List<Offer> offerList= offersService.getCurrent();
-
-		model.addAttribute("message", "Spring dispatcher servlet starts");
-		model.addAttribute("offerList", offerList);
-		return "offers";
-	}
+    @RequestMapping("/offers")
+    public String printWelcome(ModelMap model) {
+        List<Offer> offerList = offersService.getCurrent();
 
 
-	@RequestMapping("/createoffer")
-	public String createOffer(Model model) {
-		model.addAttribute("offer",new Offer());
-		return "createoffer";
-	}
+//        System.out.println("Should be Mike" + offersDAO.getOffer(2));
+//        offersDAO.delete(1);
 
-	@RequestMapping(value="/docreate", method = RequestMethod.POST)
-	public String doCreate(Model model, @Valid Offer offer, BindingResult bindingResult) {
+//        Offer offer = new Offer("Dave","Dave@mun.ca","Coding Java");
+//        if (offersDAO.create(offer)){
+//            System.out.println("created offer object"+offer);
+//        }
 
-		if (bindingResult.hasErrors()){
-			return "createoffer";
-		}
 
-		offersService.createOffer(offer);
+//        Offer offer = new Offer(6,"DaveUpdate","Dave@nocland.com","Full stack");
+//        if (offersDAO.update(offer)){
+//            System.out.println("updated offer object"+offer);
+//        }
 
-		System.out.println(offer);
-		return "offercreated";
-	}
+//        List<Offer> offersList = new ArrayList<Offer>();
+//
+//        offersList.add(new Offer(19,"Steve", "steve@caveofprogramming.com", "Cash for software."));
+//        offersList.add(new Offer(15,"Joe", "joe@caveofprogramming.com", "Elegant web design"));
+//
+//        int[] rvals = offersDAO.create(offersList);
+//
+//        for(int value: rvals) {
+//            System.out.println("Updated " + value + " rows.");
+//        }
+
+        model.addAttribute("message", "Spring dispatcher servlet starts");
+        model.addAttribute("offerList", offerList);
+        return "offers";
+    }
+
+    @RequestMapping("/createoffer")
+    public String createOffer(Model model) {
+        model.addAttribute("offer", new Offer());
+        return "createoffer";
+    }
+
+    @RequestMapping(value = "/docreate", method = RequestMethod.POST)
+    public String doCreate(Model model, @Valid Offer offer, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "createoffer";
+        }
+
+        offersService.createOffer(offer);
+
+        System.out.println(offer);
+        return "offercreated";
+    }
 
 //	public String showHome(HttpSession httpSession){
 ////		httpSession.setAttribute("name","SessionChen");

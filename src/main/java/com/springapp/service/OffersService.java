@@ -15,11 +15,11 @@ public class OffersService {
     @Autowired
     private OffersDAO offersDAO;
 
-    public List<Offer> getCurrent(){
+    public List<Offer> getCurrent() {
         return offersDAO.getOffers();
     }
 
     public void createOffer(Offer offer) {
-        offersDAO.saveOrUpdate(offer);
+        //TODO offersDAO.saveOrUpdate(offer);
     }
 }

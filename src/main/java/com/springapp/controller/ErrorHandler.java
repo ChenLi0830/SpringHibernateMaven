@@ -11,6 +11,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(Exception.class)
     public String handleException (Exception ex){
+        System.out.println(ex.getMessage());
         return "error";
     }
 
