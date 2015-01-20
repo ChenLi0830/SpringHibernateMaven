@@ -59,7 +59,7 @@
     <!--</bean>-->
 
     <!--<tx:annotation-driven/>-->
-    <jee:jndi-lookup jndi-name="jdbc/CaveDB" id="dataSource"
+    <jee:jndi-lookup jndi-name="jdbc/CaveDB" id="dataSourceJNDI"
                      expected-type="javax.sql.DataSource">
     </jee:jndi-lookup>
 </beans>

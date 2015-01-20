@@ -6,16 +6,16 @@
 
        <!--<security:-->
        <security:authentication-manager>
-              <security:authentication-provider>
-                     <security:user-service>
-                            <security:user name="Chen.Li" authorities="admin" password="admin"></security:user>
-                            <security:user name="Wei.Wang" authorities="admin" password="admin"></security:user>
-                     </security:user-service>
-              </security:authentication-provider>
-
-              <!--<security:authentication-provider >-->
-                     <!--<security:jdbc-user-service data-source-ref="dataSource"  />-->
+              <!--<security:authentication-provider>-->
+                     <!--<security:user-service>-->
+                            <!--<security:user name="Chen.Li" authorities="admin" password="admin"></security:user>-->
+                            <!--<security:user name="Wei.Wang" authorities="admin" password="admin"></security:user>-->
+                     <!--</security:user-service>-->
               <!--</security:authentication-provider>-->
+
+              <security:authentication-provider >
+                     <security:jdbc-user-service data-source-ref="dataSourceJNDI"  />
+              </security:authentication-provider>
        </security:authentication-manager>
 
        <security:http use-expressions="true">
