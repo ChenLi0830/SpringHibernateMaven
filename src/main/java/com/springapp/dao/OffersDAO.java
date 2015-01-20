@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 
 @Component("offersDao")
-public class OffersDAO {
+public class OffersDao {
 
     private NamedParameterJdbcTemplate jdbc;
 
@@ -86,7 +86,7 @@ public class OffersDAO {
 }
 
 //@Component
-//public class OffersDAO {
+//public class OffersDao {
 //
 //	@Autowired
 //	private SessionFactory sessionFactory;

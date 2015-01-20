@@ -1,7 +1,7 @@
 package com.springapp.controller;
 
 import com.springapp.bean.Offer;
-import com.springapp.dao.OffersDAO;
+import com.springapp.dao.OffersDao;
 import com.springapp.service.OffersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 public class OffersController {
     @Autowired
-    private OffersDAO offersDAO;
+    private OffersDao offersDao;
     @Autowired
     private OffersService offersService;
 
@@ -34,17 +34,17 @@ public class OffersController {
         List<Offer> offerList = offersService.getCurrent();
 
 
-//        System.out.println("Should be Mike" + offersDAO.getOffer(2));
-//        offersDAO.delete(1);
+//        System.out.println("Should be Mike" + offersDao.getOffer(2));
+//        offersDao.delete(1);
 
 //        Offer offer = new Offer("Dave","Dave@mun.ca","Coding Java");
-//        if (offersDAO.create(offer)){
+//        if (offersDao.create(offer)){
 //            System.out.println("created offer object"+offer);
 //        }
 
 
 //        Offer offer = new Offer(6,"DaveUpdate","Dave@nocland.com","Full stack");
-//        if (offersDAO.update(offer)){
+//        if (offersDao.update(offer)){
 //            System.out.println("updated offer object"+offer);
 //        }
 
@@ -53,7 +53,7 @@ public class OffersController {
 //        offersList.add(new Offer(19,"Steve", "steve@caveofprogramming.com", "Cash for software."));
 //        offersList.add(new Offer(15,"Joe", "joe@caveofprogramming.com", "Elegant web design"));
 //
-//        int[] rvals = offersDAO.create(offersList);
+//        int[] rvals = offersDao.create(offersList);
 //
 //        for(int value: rvals) {
 //            System.out.println("Updated " + value + " rows.");

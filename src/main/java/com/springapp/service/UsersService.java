@@ -1,7 +1,9 @@
 package com.springapp.service;
 
 import com.springapp.bean.Offer;
+import com.springapp.bean.User;
 import com.springapp.dao.OffersDao;
+import com.springapp.dao.UsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,17 +12,13 @@ import java.util.List;
 /**
  * Created by root on 1/16/15.
  */
-@Service("offersService")
-public class OffersService {
+@Service("usersService")
+public class UsersService {
     @Autowired
-    private OffersDao offersDao;
+    private UsersDao usersDao;
 
-    public List<Offer> getCurrent() {
-        return offersDao.getOffers();
-    }
-
-    public void createOffer(Offer offer) {
-        offersDao.create(offer);
+    public void createUser(User user) {
+        usersDao.create(user);
 //        offersDao.saveOrUpdate(offer);
     }
 }
