@@ -1,9 +1,24 @@
 package com.springapp.bean;
 
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class User {
+    @NotBlank(message = "User name cannot be blank.")
+    @Size(max = 30, min = 3, message = "Username must be between 3 and 30 characters long.")
     private String username;
+
+    @NotBlank
+    @Pattern(regexp = "^\\S+$")
+    @Size(min = 5, max = 30, message = "Password must be between 5 and 30 characters long.")
     private String password;
+
+    @NotBlank
+    @Email
     private String email;
     private boolean enabled = false;
     private String authority;

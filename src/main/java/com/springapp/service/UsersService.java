@@ -21,4 +21,8 @@ public class UsersService {
         usersDao.create(user);
 //        offersDao.saveOrUpdate(offer);
     }
+
+    public boolean exists(String username) {
+        return usersDao.exists(username);
+    }
 }

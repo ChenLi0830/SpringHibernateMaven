@@ -30,6 +30,11 @@ textarea {
     color:red;
 }
 
+.valid{
+    font-size: small;
+    color:green;
+}
+
 table.offers{
     padding: 10px;
     color:green;

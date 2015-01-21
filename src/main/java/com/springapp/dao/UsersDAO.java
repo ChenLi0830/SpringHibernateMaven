@@ -32,7 +32,11 @@ public class UsersDao {
         return jdbc.update("insert into authorities (username, authority) values (:username, :authority)", beanPropertySqlParameterSource) == 1;
     }
 
-
+    public boolean exists(String username) {
+        MapSqlParameterSource mapSqlParameterSource= new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("username", username);
+        return jdbc.queryForObject("select count(*) from users where username=:username", mapSqlParameterSource, Integer.class)>0;
+    }
 }
 
 //@Component
