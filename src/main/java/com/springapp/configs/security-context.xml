@@ -14,11 +14,15 @@
               <!--</security:authentication-provider>-->
 
               <security:authentication-provider >
-                     <security:jdbc-user-service data-source-ref="dataSourceJNDI"  />
+                     <security:jdbc-user-service data-source-ref="dataSourceJNDI"
+                            authorities-by-username-query="select * from authorities where binary username = ?"
+                            users-by-username-query="select * from users where binary username = ?" />
+                     <security:password-encoder ref="passwordEncoder"/>
               </security:authentication-provider>
        </security:authentication-manager>
 
        <security:http use-expressions="true">
+              <security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"></security:intercept-url>
               <security:intercept-url pattern="/createoffer" access="isAuthenticated()"></security:intercept-url>
               <security:intercept-url pattern="/docreate" access="isAuthenticated()"></security:intercept-url>
               <security:intercept-url pattern="/offercreated" access="isAuthenticated()"></security:intercept-url>
@@ -36,4 +40,10 @@
               <security:logout logout-success-url="/logout"/>
        </security:http>
 
+       <security:global-method-security secured-annotations="enabled"></security:global-method-security>
+
+
+       <bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+       </bean>
 </beans>
+

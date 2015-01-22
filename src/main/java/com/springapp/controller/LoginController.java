@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Chen on 15-01-18.
@@ -34,9 +35,16 @@ public class LoginController {
         return "logout";
     }
 
+    @RequestMapping("/admin")
+    public String showAdmin(Model model) {
+        List<User> users = usersService.getAllUsers();
+        model.addAttribute("users", users);
+        return "admin";
+    }
+
     @RequestMapping("/newaccount")
     public String showNewAccount(ModelMap modelMap) {
-        modelMap.addAttribute("user",new User());
+        modelMap.addAttribute("user", new User());
         return "newaccount";
     }
 
@@ -48,18 +56,18 @@ public class LoginController {
         }
 
         user.setEnabled(true);
-        user.setAuthority("user");
+        user.setAuthority("ROLE_USER");
 
-        if (usersService.exists(user.getUsername())){
+        if (usersService.exists(user.getUsername())) {
             System.out.println("caught username duplicate.");
-            bindingResult.rejectValue("username","DuplicateKey.user.username","This username already exists.");
+            bindingResult.rejectValue("username", "DuplicateKey.user.username", "This username already exists.");
             return "newaccount";
         }
 
-        try{
+        try {
             usersService.createUser(user);
-        } catch (DuplicateKeyException ex){
-            bindingResult.rejectValue("username","DuplicateKey.user.username","This username already exists.");
+        } catch (DuplicateKeyException ex) {
+            bindingResult.rejectValue("username", "DuplicateKey.user.username", "This username already exists.");
             return "newaccount";
         }
 

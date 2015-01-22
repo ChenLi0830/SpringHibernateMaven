@@ -3,8 +3,11 @@ package com.springapp.dao;
 import com.springapp.bean.Offer;
 import com.springapp.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.*;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,23 +22,36 @@ public class UsersDao {
     private NamedParameterJdbcTemplate jdbc;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     public void setDataSource(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Transactional
     public boolean create(User user) {
-        BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(user);
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 
-        jdbc.update("insert into users (username,password,email,enabled) values (:username,:password,:email,:enabled)", beanPropertySqlParameterSource);
+        mapSqlParameterSource.addValue("username",user.getUsername());
+        mapSqlParameterSource.addValue("password",passwordEncoder.encode(user.getPassword()));
+        mapSqlParameterSource.addValue("email",user.getEmail());
+        mapSqlParameterSource.addValue("enabled",user.isEnabled());
+        mapSqlParameterSource.addValue("authority",user.getAuthority());
 
-        return jdbc.update("insert into authorities (username, authority) values (:username, :authority)", beanPropertySqlParameterSource) == 1;
+        jdbc.update("insert into users (username,password,email,enabled) values (:username,:password,:email,:enabled)", mapSqlParameterSource);
+
+        return jdbc.update("insert into authorities (username, authority) values (:username, :authority)", mapSqlParameterSource) == 1;
     }
 
     public boolean exists(String username) {
         MapSqlParameterSource mapSqlParameterSource= new MapSqlParameterSource();
         mapSqlParameterSource.addValue("username", username);
         return jdbc.queryForObject("select count(*) from users where username=:username", mapSqlParameterSource, Integer.class)>0;
+    }
+
+    public List<User> getAllUsers() {
+        return jdbc.query("select * from users,  authorities where users.username=authorities.username", BeanPropertyRowMapper.newInstance(User.class));
     }
 }
 
