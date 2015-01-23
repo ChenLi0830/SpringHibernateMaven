@@ -1,5 +1,6 @@
 package com.springapp.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class HomeController {
 
+	private static Logger logger = Logger.getLogger(HomeController.class);
+
 	@RequestMapping("/")
 	public String showHome(Model model){
-	return "home";
+		logger.info("Showing home page...");
+		return "home";
 }
 
 }
