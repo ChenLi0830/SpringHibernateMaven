@@ -1,15 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
-<link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css" />
-
-
-<html>
-<body>
-
-
-<h1>under construction, create a new offer.</h1>
-<br/>
-
 
 <sf:form action="${pageContext.request.contextPath}/docreate" method="post" commandName="offer">
   <table class="formtable">
@@ -19,7 +9,3 @@
     <tr><td class="label"> </td><td><input class="control"  value="Create advert" type="submit" /></td></tr>
   </table>
 </sf:form>
-
-
-</body>
-</html>

@@ -2,10 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css"/>
 
-<html>
-<head><title>Login Page</title></head>
-<body onload='document.f.j_username.focus();'>
-<h3>Login with Username and Password</h3>
+<script>
+$(document).ready(function(){
+    document.f.j_username.focus();
+})
+</script>
+
 
 <c:if test="${param.error!=null}">
     <p class="loginerror">Login Failed. Check your user name and password. </p>
@@ -28,6 +30,3 @@
 </form>
 
 <p><a href="<c:url value="/newaccount"/>">Create new account</a></p>
-
-</body>
-</html>
