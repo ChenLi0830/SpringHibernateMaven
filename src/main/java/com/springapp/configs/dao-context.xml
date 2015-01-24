@@ -54,14 +54,17 @@
         <!--<property name="username" value="${jdbc.username}"/>-->
     <!--</bean>-->
 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSourceJNDI"/>
-    </bean>
-    <tx:annotation-driven/>
+    <beans profile="production">
 
-    <jee:jndi-lookup jndi-name="jdbc/CaveDB" id="dataSourceJNDI"
-                     expected-type="javax.sql.DataSource">
-    </jee:jndi-lookup>
+        <jee:jndi-lookup jndi-name="jdbc/CaveDB" id="dataSourceJNDI"
+                         expected-type="javax.sql.DataSource">
+        </jee:jndi-lookup>
 
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSourceJNDI"/>
+        </bean>
+        <tx:annotation-driven/>
+
+    </beans>
 
 </beans>
