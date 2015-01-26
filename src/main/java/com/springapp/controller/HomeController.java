@@ -16,8 +16,7 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String showHome(Model model){
-		logger.info("Showing home page...");
 		return "home";
-}
+	}
 
 }

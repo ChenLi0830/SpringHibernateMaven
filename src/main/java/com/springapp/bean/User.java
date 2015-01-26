@@ -21,6 +21,8 @@ public class User {
     @Email
     private String email;
 
+    @NotBlank(message = "Name cannot be blank.")
+    @Size(max = 60, min = 3, message = "Name must be between 3 and 60 characters long.")
     private String name;
     private boolean enabled = false;
     private String authority;
