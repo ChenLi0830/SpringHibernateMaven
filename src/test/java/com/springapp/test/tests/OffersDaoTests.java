@@ -51,7 +51,7 @@ public class OffersDaoTests {
     }
 
     @Test
-    public void testCreateOffer() {
+    public void testOffers() {
         User user = new User("UserFromTest","Test User","hello","test@mun.ca",true,"ROLE_USER");
         Assert.assertTrue("User creation should return true", usersDao.create(user));
 
@@ -71,6 +71,8 @@ public class OffersDaoTests {
         offersDao.create(offerList2);
         Assert.assertEquals("There should be 3 offers.", 3, offersDao.getOffers().size());
 
+
+        /*Test by id;*/
         offer = offerList.get(0);
         offer.setText("Hey! I am the best UI designer in town. (0|-)");
         offersDao.update(offer);
@@ -78,6 +80,11 @@ public class OffersDaoTests {
         Offer updatedOffer = offersDao.getOffer(offer.getId());
         Assert.assertEquals("Updated offer should match retrieved updated offer", offer, updatedOffer);
 
+
+        List <Offer> userList = offersDao.getOffers(user.getUsername());
+        Assert.assertEquals("There should be 3 offers", 3, userList.size());
+
+        /*Test deletion*/
         Assert.assertTrue("Should delete the offer successfully.",offersDao.delete(offer.getId()));
         Assert.assertEquals("There should be 2 offers after the deletion", 2, offersDao.getOffers().size());
     }

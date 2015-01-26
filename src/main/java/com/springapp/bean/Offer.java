@@ -18,7 +18,7 @@ public class Offer {
 	User user;
 
 	public Offer() {
-
+		this.user = new User();
 	}
 
 	public Offer(User user, String text) {
@@ -30,6 +30,10 @@ public class Offer {
 		this.id = id;
 		this.user = user;
 		this.text = text;
+	}
+
+	public User getUser() {
+		return user;
 	}
 
 	public void setUser(User user) {

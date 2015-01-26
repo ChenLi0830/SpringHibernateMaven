@@ -1,6 +1,7 @@
 package com.springapp.controller;
 
 import com.springapp.bean.Offer;
+import com.springapp.bean.User;
 import com.springapp.dao.OffersDao;
 import com.springapp.service.OffersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -71,11 +73,14 @@ public class OffersController {
     }
 
     @RequestMapping(value = "/docreate", method = RequestMethod.POST)
-    public String doCreate(Model model, @Valid Offer offer, BindingResult bindingResult) {
+    public String doCreate(Model model, @Valid Offer offer, BindingResult bindingResult, Principal principal) {
 
         if (bindingResult.hasErrors()) {
             return "createoffer";
         }
+
+        String username = principal.getName();
+        offer.getUser().setUsername(username);
 
         offersService.createOffer(offer);
 
