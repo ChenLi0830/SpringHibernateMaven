@@ -1,10 +1,9 @@
 package com.springapp.bean;
 
-import org.hibernate.validator.constraints.Email;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -13,34 +12,28 @@ public class Offer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Size(min = 5,max = 100, message = "Name must be between 5 and 100 characters")
-	private String name;
-
-	@NotNull
-	@Email(message = "Sorry, this does not appear to be a valid email address.")
-	private String email;
-
 	@Size(min = 20,max = 255, message = "Text must be between 20 and 255 characters")
 	private String text;
+
+	User user;
 
 	public Offer() {
 
 	}
 
-	public Offer(String name, String email, String text) {
-		this.name = name;
-		this.email = email;
+	public Offer(User user, String text) {
+		this.user = user;
 		this.text = text;
 	}
 
-
-
-	public Offer(int id, String name, String email, String text) {
-		super();
+	public Offer(int id, User user, String text) {
 		this.id = id;
-		this.name = name;
-		this.email = email;
+		this.user = user;
 		this.text = text;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getId() {
@@ -49,22 +42,6 @@ public class Offer {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getText() {
@@ -77,8 +54,34 @@ public class Offer {
 
 	@Override
 	public String toString() {
-		return "Offer [id=" + id + ", name=" + name + ", email=" + email
-				+ ", text=" + text + "]";
+		return "Offer{" +
+				"id=" + id +
+				", text='" + text + '\'' +
+				", user=" + user +
+				'}';
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Offer)) return false;
+
+		Offer offer = (Offer) o;
+
+		if (text != null ? !text.equals(offer.text) : offer.text != null) return false;
+		if (user != null ? !user.equals(offer.user) : offer.user != null) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = text != null ? text.hashCode() : 0;
+		result = 31 * result + (user != null ? user.hashCode() : 0);
+		return result;
+	}
+
+	public String getUsername() {
+		return user.getUsername();
+	}
 }

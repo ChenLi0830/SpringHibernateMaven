@@ -1,19 +1,15 @@
 package com.springapp.dao;
 
-import com.springapp.bean.Offer;
 import com.springapp.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.*;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Component("usersDao")
@@ -38,10 +34,9 @@ public class UsersDao {
         mapSqlParameterSource.addValue("email",user.getEmail());
         mapSqlParameterSource.addValue("enabled",user.isEnabled());
         mapSqlParameterSource.addValue("authority",user.getAuthority());
+        mapSqlParameterSource.addValue("name",user.getName());
 
-        jdbc.update("insert into users (username,password,email,enabled) values (:username,:password,:email,:enabled)", mapSqlParameterSource);
-
-        return jdbc.update("insert into authorities (username, authority) values (:username, :authority)", mapSqlParameterSource) == 1;
+        return jdbc.update("insert into users (username,password,email,enabled,name,authority) values (:username,:password,:email,:enabled,:name,:authority)", mapSqlParameterSource)==1;
     }
 
     public boolean exists(String username) {
@@ -51,7 +46,7 @@ public class UsersDao {
     }
 
     public List<User> getAllUsers() {
-        return jdbc.query("select * from users,  authorities where users.username=authorities.username", BeanPropertyRowMapper.newInstance(User.class));
+        return jdbc.query("select * from users", BeanPropertyRowMapper.newInstance(User.class));
     }
 }
 
