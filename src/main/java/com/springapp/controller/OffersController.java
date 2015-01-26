@@ -31,40 +31,40 @@ public class OffersController {
         return "home";
     }
 
-    @RequestMapping("/offers")
-    public String printWelcome(ModelMap model) {
-        List<Offer> offerList = offersService.getCurrent();
-
-
-//        System.out.println("Should be Mike" + offersDao.getOffer(2));
-//        offersDao.delete(1);
-
-//        Offer offer = new Offer("Dave","Dave@mun.ca","Coding Java");
-//        if (offersDao.create(offer)){
-//            System.out.println("created offer object"+offer);
-//        }
-
-
-//        Offer offer = new Offer(6,"DaveUpdate","Dave@nocland.com","Full stack");
-//        if (offersDao.update(offer)){
-//            System.out.println("updated offer object"+offer);
-//        }
-
-//        List<Offer> offersList = new ArrayList<Offer>();
+//    @RequestMapping("/offers")
+//    public String printWelcome(ModelMap model) {
+//        List<Offer> offerList = offersService.getCurrent();
 //
-//        offersList.add(new Offer(19,"Steve", "steve@caveofprogramming.com", "Cash for software."));
-//        offersList.add(new Offer(15,"Joe", "joe@caveofprogramming.com", "Elegant web design"));
 //
-//        int[] rvals = offersDao.create(offersList);
+////        System.out.println("Should be Mike" + offersDao.getOffer(2));
+////        offersDao.delete(1);
 //
-//        for(int value: rvals) {
-//            System.out.println("Updated " + value + " rows.");
-//        }
-
-        model.addAttribute("message", "Spring dispatcher servlet starts");
-        model.addAttribute("offerList", offerList);
-        return "offers";
-    }
+////        Offer offer = new Offer("Dave","Dave@mun.ca","Coding Java");
+////        if (offersDao.create(offer)){
+////            System.out.println("created offer object"+offer);
+////        }
+//
+//
+////        Offer offer = new Offer(6,"DaveUpdate","Dave@nocland.com","Full stack");
+////        if (offersDao.update(offer)){
+////            System.out.println("updated offer object"+offer);
+////        }
+//
+////        List<Offer> offersList = new ArrayList<Offer>();
+////
+////        offersList.add(new Offer(19,"Steve", "steve@caveofprogramming.com", "Cash for software."));
+////        offersList.add(new Offer(15,"Joe", "joe@caveofprogramming.com", "Elegant web design"));
+////
+////        int[] rvals = offersDao.create(offersList);
+////
+////        for(int value: rvals) {
+////            System.out.println("Updated " + value + " rows.");
+////        }
+//
+//        model.addAttribute("message", "Spring dispatcher servlet starts");
+//        model.addAttribute("offerList", offerList);
+//        return "offers";
+//    }
 
     @RequestMapping("/createoffer")
     public String createOffer(Model model) {

@@ -25,4 +25,16 @@ public class OffersService {
         offersDao.create(offer);
 //        offersDao.saveOrUpdate(offer);
     }
+
+    public Boolean hasOffers(String username) {
+        if (username==null) {
+            return false;
+        }
+
+        if (offersDao.getOffers(username).size()==0){
+            return false;
+        }
+
+        return true;
+    }
 }
