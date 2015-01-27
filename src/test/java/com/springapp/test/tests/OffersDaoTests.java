@@ -53,7 +53,7 @@ public class OffersDaoTests {
     @Test
     public void testOffers() {
         User user = new User("UserFromTest","Test User","hello","test@mun.ca",true,"ROLE_USER");
-        Assert.assertTrue("User creation should return true", usersDao.create(user));
+        usersDao.create(user);
 
         Offer offer = new Offer(user, "Best UI designer in town. (0|-)");
         Offer offer2 = new Offer(user, "Best backend developer in town. :P");

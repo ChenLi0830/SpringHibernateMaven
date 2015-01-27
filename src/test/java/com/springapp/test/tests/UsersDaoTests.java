@@ -36,6 +36,11 @@ public class UsersDaoTests {
     private DataSource datasource;
 
 
+    private User user = new User("UserFromTest","Test User","hello","test@mun.ca",true,"ROLE_USER");
+    private User user2 = new User("UserFromTest2","Test User 2","hello","test@mun.ca",true,"ROLE_USER");
+    private User user3 = new User("UserFromTest3","Test User 3","hello","test@mun.ca",true,"ROLE_ADMIN");
+    private User user4 = new User("UserFromTest4","Test User 4","hello","test@mun.ca",false,"user");
+
     @Before //表示run it before the @test
     public void init() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
@@ -44,11 +49,28 @@ public class UsersDaoTests {
         jdbcTemplate.execute("delete from users");//删除table里的信息
     }
 
+    @Test
+    public void testCreateRetrieve(){
+        usersDao.create(user);
 
+        List<User> userList = usersDao.getAllUsers();
+        Assert.assertEquals("One user should be created and retrieved", 1, userList.size());
+        Assert.assertEquals("Inserted user should match retrieved", user, userList.get(0));
+
+        usersDao.create(user2);
+        usersDao.create(user3);
+        usersDao.create(user4);
+
+        List<User> userList2 = usersDao.getAllUsers();
+        Assert.assertEquals("4 users should be retrieved", 4, userList2.size());
+    }
+
+    //TODO - Re-implement this
     @Test
     public void testUsers() {
-        User user = new User("UserFromTest","Test User","hello","test@mun.ca",true,"ROLE_USER");
-        Assert.assertTrue("User creation should return true",usersDao.create(user));
+
+
+        usersDao.create(user);
 
         List<User> userList = usersDao.getAllUsers();
 

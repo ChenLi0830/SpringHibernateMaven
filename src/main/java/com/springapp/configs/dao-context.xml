@@ -61,10 +61,34 @@
                          expected-type="javax.sql.DataSource">
         </jee:jndi-lookup>
 
-        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
             <property name="dataSource" ref="dataSourceJNDI"/>
+            <property name="annotatedClasses">
+                <list>
+                    <value>com.springapp.bean.User</value>
+                    <!--<value>com.springapp.bean.Offer</value>-->
+                </list>
+            </property>
+            <property name="hibernateProperties">
+                <props>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                    <prop key="hibernate.show_sql">true</prop>
+                    <prop key="hibernate.hbm2ddl.auto">update</prop>
+                </props>
+            </property>
         </bean>
-        <tx:annotation-driven/>
+
+        <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="dataSourceJNDI"/>-->
+        <!--</bean>-->
+        <!--<tx:annotation-driven/>-->
+
+        <bean id="transactionManagerHB"
+              class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <tx:annotation-driven transaction-manager="transactionManagerHB"/>
 
     </beans>
 

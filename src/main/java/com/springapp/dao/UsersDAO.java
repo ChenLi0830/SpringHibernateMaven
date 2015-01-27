@@ -36,17 +36,10 @@ public class UsersDao {
     }
 
     @Transactional
-    public boolean create(User user) {
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-
-        mapSqlParameterSource.addValue("username",user.getUsername());
-        mapSqlParameterSource.addValue("password",passwordEncoder.encode(user.getPassword()));
-        mapSqlParameterSource.addValue("email",user.getEmail());
-        mapSqlParameterSource.addValue("enabled",user.isEnabled());
-        mapSqlParameterSource.addValue("authority",user.getAuthority());
-        mapSqlParameterSource.addValue("name",user.getName());
-
-        return jdbc.update("insert into users (username,password,email,enabled,name,authority) values (:username,:password,:email,:enabled,:name,:authority)", mapSqlParameterSource)==1;
+    public void create(User user) {
+        Session session = session();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        session.save(user);
     }
 
     public boolean exists(String username) {

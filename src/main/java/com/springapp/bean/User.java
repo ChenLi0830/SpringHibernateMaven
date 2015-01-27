@@ -20,7 +20,7 @@ public class User {
 
     @NotBlank
     @Pattern(regexp = "^\\S+$")
-    @Size(min = 5, max = 30, message = "Password must be between 5 and 30 characters long.")
+    @Size(min = 5, max = 80, message = "Password must be between 5 and 80 characters long.")
     private String password;
 
     @NotBlank
