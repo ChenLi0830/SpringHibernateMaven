@@ -37,4 +37,27 @@ public class OffersService {
 
         return true;
     }
+
+    public Offer getOffer(String username) {
+        if (username==null){
+            return null;
+        }
+
+        List <Offer> offerList = offersDao.getOffers(username);
+        if (offerList.size()==0) {
+            return null;
+        }
+        return offerList.get(0);
+    }
+
+    public void createOrUpdateOffer(Offer offer) {
+        if (offer.getId()!=0){
+            offersDao.update(offer);
+        } else
+            offersDao.create(offer);
+    }
+
+    public void delete(int id) {
+        offersDao.delete(id);
+    }
 }

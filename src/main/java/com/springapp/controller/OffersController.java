@@ -31,61 +31,74 @@ public class OffersController {
         return "home";
     }
 
-//    @RequestMapping("/offers")
-//    public String printWelcome(ModelMap model) {
-//        List<Offer> offerList = offersService.getCurrent();
+    @RequestMapping("/offers")
+    public String printWelcome(ModelMap model) {
+        List<Offer> offerList = offersService.getCurrent();
+
+
+//        System.out.println("Should be Mike" + offersDao.getOffer(2));
+//        offersDao.delete(1);
+
+//        Offer offer = new Offer("Dave","Dave@mun.ca","Coding Java");
+//        if (offersDao.create(offer)){
+//            System.out.println("created offer object"+offer);
+//        }
+
+
+//        Offer offer = new Offer(6,"DaveUpdate","Dave@nocland.com","Full stack");
+//        if (offersDao.update(offer)){
+//            System.out.println("updated offer object"+offer);
+//        }
+
+//        List<Offer> offersList = new ArrayList<Offer>();
 //
+//        offersList.add(new Offer(19,"Steve", "steve@caveofprogramming.com", "Cash for software."));
+//        offersList.add(new Offer(15,"Joe", "joe@caveofprogramming.com", "Elegant web design"));
 //
-////        System.out.println("Should be Mike" + offersDao.getOffer(2));
-////        offersDao.delete(1);
+//        int[] rvals = offersDao.create(offersList);
 //
-////        Offer offer = new Offer("Dave","Dave@mun.ca","Coding Java");
-////        if (offersDao.create(offer)){
-////            System.out.println("created offer object"+offer);
-////        }
-//
-//
-////        Offer offer = new Offer(6,"DaveUpdate","Dave@nocland.com","Full stack");
-////        if (offersDao.update(offer)){
-////            System.out.println("updated offer object"+offer);
-////        }
-//
-////        List<Offer> offersList = new ArrayList<Offer>();
-////
-////        offersList.add(new Offer(19,"Steve", "steve@caveofprogramming.com", "Cash for software."));
-////        offersList.add(new Offer(15,"Joe", "joe@caveofprogramming.com", "Elegant web design"));
-////
-////        int[] rvals = offersDao.create(offersList);
-////
-////        for(int value: rvals) {
-////            System.out.println("Updated " + value + " rows.");
-////        }
-//
-//        model.addAttribute("message", "Spring dispatcher servlet starts");
-//        model.addAttribute("offerList", offerList);
-//        return "offers";
-//    }
+//        for(int value: rvals) {
+//            System.out.println("Updated " + value + " rows.");
+//        }
+
+        model.addAttribute("message", "Spring dispatcher servlet starts");
+        model.addAttribute("offerList", offerList);
+        return "offers";
+    }
 
     @RequestMapping("/createoffer")
-    public String createOffer(Model model) {
-        model.addAttribute("offer", new Offer());
+    public String createOffer(Model model,Principal principal) {
+
+        Offer offer = null;
+        if (principal!=null){
+            String username = principal.getName();
+            offer = offersService.getOffer(username);
+        }
+
+        if (offer == null) {
+            offer = new Offer();
+        }
+
+        model.addAttribute("offer", offer);
         return "createoffer";
     }
 
     @RequestMapping(value = "/docreate", method = RequestMethod.POST)
-    public String doCreate(Model model, @Valid Offer offer, BindingResult bindingResult, Principal principal) {
+    public String doCreate(Model model, @Valid Offer offer, BindingResult bindingResult, Principal principal, @RequestParam(value = "delete", required = false)String delete) {
 
         if (bindingResult.hasErrors()) {
             return "createoffer";
         }
 
-        String username = principal.getName();
-        offer.getUser().setUsername(username);
-
-        offersService.createOffer(offer);
-
-        System.out.println(offer);
-        return "offercreated";
+        if (delete == null){
+            String username = principal.getName();
+            offer.getUser().setUsername(username);
+            offersService.createOrUpdateOffer(offer);
+            return "offercreated";
+        } else {
+            offersService.delete(offer.getId());
+            return "offerdeleted";
+        }
     }
 
 //	public String showHome(HttpSession httpSession){
