@@ -65,6 +65,17 @@ public class UsersDaoTests {
         Assert.assertEquals("4 users should be retrieved", 4, userList2.size());
     }
 
+    @Test
+    public void testExists(){
+        usersDao.create(user);
+        usersDao.create(user2);
+        usersDao.create(user3);
+        usersDao.create(user4);
+
+        Assert.assertTrue("User should exist", usersDao.exists(user2.getUsername()));
+        Assert.assertFalse("User should not exist", usersDao.exists("asdfasdfas"));
+    }
+
     //TODO - Re-implement this
     @Test
     public void testUsers() {
@@ -75,8 +86,6 @@ public class UsersDaoTests {
         List<User> userList = usersDao.getAllUsers();
 
         Assert.assertEquals("Number of users should be 1", 1, userList.size());
-
-        Assert.assertTrue("User should exist", usersDao.exists(user.getUsername()));
 
         Assert.assertEquals("Created user should be identical to retrieved user", user, userList.get(0));
     }

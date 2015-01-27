@@ -1,8 +1,10 @@
 package com.springapp.dao;
 
 import com.springapp.bean.User;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -18,18 +20,11 @@ import java.util.List;
 @Component("usersDao")
 public class UsersDao {
 
-    private NamedParameterJdbcTemplate jdbc;
-
     @Autowired
     private SessionFactory sessionFactory;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-    }
 
     public Session session(){
         return sessionFactory.getCurrentSession();
@@ -43,9 +38,14 @@ public class UsersDao {
     }
 
     public boolean exists(String username) {
-        MapSqlParameterSource mapSqlParameterSource= new MapSqlParameterSource();
+        Criteria criteria = session().createCriteria(User.class);
+        criteria.add(Restrictions.eq("username",username));
+        User user = (User) criteria.uniqueResult();
+
+        return user != null;
+        /*MapSqlParameterSource mapSqlParameterSource= new MapSqlParameterSource();
         mapSqlParameterSource.addValue("username", username);
-        return jdbc.queryForObject("select count(*) from users where username=:username", mapSqlParameterSource, Integer.class)>0;
+        return jdbc.queryForObject("select count(*) from users where username=:username", mapSqlParameterSource, Integer.class)>0;*/
     }
 
     @SuppressWarnings(value = "unchecked")
