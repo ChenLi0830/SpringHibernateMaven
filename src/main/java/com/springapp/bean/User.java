@@ -4,10 +4,16 @@ package com.springapp.bean;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
     @NotBlank(message = "User name cannot be blank.")
     @Size(max = 30, min = 3, message = "Username must be between 3 and 30 characters long.")
     private String username;
