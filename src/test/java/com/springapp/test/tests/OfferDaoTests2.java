@@ -60,7 +60,7 @@ public class OfferDaoTests2 {
 
 		Offer offer = new Offer(user, "This is a test offer.");
 
-		Assert.assertTrue("Offer creation should return true", offersDao.create(offer));
+		offersDao.create(offer);
 
 		List<Offer> offers = offersDao.getOffers();
 

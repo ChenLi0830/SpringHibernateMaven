@@ -2,6 +2,8 @@ package com.springapp.dao;
 
 import com.springapp.bean.Offer;
 import com.springapp.bean.User;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.*;
@@ -13,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
+@Transactional
 @Component("offersDao")
 public class OffersDao {
 
@@ -22,6 +24,13 @@ public class OffersDao {
     @Autowired
     public void setDataSource(DataSource jdbc) {
         this.jdbc = new NamedParameterJdbcTemplate(jdbc);
+    }
+
+    @Autowired
+    public SessionFactory sessionFactory;
+
+    public Session session(){
+        return sessionFactory.getCurrentSession();
     }
 
     public List<Offer> getOffers() {
@@ -42,14 +51,8 @@ public class OffersDao {
         return jdbc.update("update offers set text=:text where id=:id", params) == 1;
     }
 
-    public boolean create(Offer offer) {
-
-        BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
-                offer);
-
-        return jdbc
-                .update("insert into offers (username, text) values (:username, :text)",
-                        params) == 1;
+    public void create(Offer offer) {
+        session().save(offer);
     }
 
     @Transactional

@@ -30,7 +30,7 @@
             <property name="annotatedClasses">
                 <list>
                     <value>com.springapp.bean.User</value>
-                    <!--<value>com.springapp.bean.Offer</value>-->
+                    <value>com.springapp.bean.Offer</value>
                 </list>
             </property>
             <property name="hibernateProperties">

@@ -1,12 +1,10 @@
 package com.springapp.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "offers")
 public class Offer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,6 +13,8 @@ public class Offer {
 	@Size(min = 20,max = 255, message = "Text must be between 20 and 255 characters")
 	private String text;
 
+	@ManyToOne
+	@JoinColumn(name = "username")
 	User user;
 
 	public Offer() {
