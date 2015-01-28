@@ -43,42 +43,10 @@ public class UsersDao {
         User user = (User) criteria.uniqueResult();
 
         return user != null;
-        /*MapSqlParameterSource mapSqlParameterSource= new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("username", username);
-        return jdbc.queryForObject("select count(*) from users where username=:username", mapSqlParameterSource, Integer.class)>0;*/
     }
 
     @SuppressWarnings(value = "unchecked")
     public List<User> getAllUsers() {
         return session().createQuery("from User").list();
-//        return jdbc.query("select * from users", BeanPropertyRowMapper.newInstance(User.class));
     }
 }
-
-//@Component
-//public class OffersDao {
-//
-//	@Autowired
-//	private SessionFactory sessionFactory;
-//
-//	public List<Offer> getOffers() {
-//		return sessionFactory.openSession().createCriteria(Offer.class).list();
-//	}
-//
-//
-//	public void saveOrUpdate(Offer offer) {
-//		Session session = sessionFactory.openSession();
-//		Transaction tx = session.beginTransaction();
-//		session.save(offer);
-//		tx.commit();
-//		session.close();
-//	}
-//
-//	public Offer getOffer(int id){
-//		Session session = sessionFactory.openSession();
-//		Offer offer = (Offer) session.get(Offer.class,id);
-//		session.close();
-//		return offer;
-//
-//	}
-//}
