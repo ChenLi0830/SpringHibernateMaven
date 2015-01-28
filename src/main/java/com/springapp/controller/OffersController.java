@@ -99,6 +99,7 @@ public class OffersController {
             offersService.delete(offer.getId());
             return "offerdeleted";
         }
+
     }
 
 //	public String showHome(HttpSession httpSession){

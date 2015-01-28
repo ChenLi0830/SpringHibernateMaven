@@ -2,8 +2,10 @@ package com.springapp.dao;
 
 import com.springapp.bean.Offer;
 import com.springapp.bean.User;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.*;
@@ -33,38 +35,42 @@ public class OffersDao {
         return sessionFactory.getCurrentSession();
     }
 
+    @SuppressWarnings("unchecked")
     public List<Offer> getOffers() {
 
-        return jdbc.query("select * from offers, users where offers.username=users.username and users.enabled=true", new OfferRowMapper());
+        Criteria criteria = session().createCriteria(Offer.class);
+        criteria.createAlias("user","u");
+        criteria.add(Restrictions.eq("u.enabled",true));
+
+        return criteria.list();
     }
 
+    @SuppressWarnings("unchecked")
     public List<Offer> getOffers(String username) {
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("username",username);
-        return jdbc.query("select * from offers, users where offers.username=users.username and users.enabled=true and offers.username = :username", mapSqlParameterSource, new OfferRowMapper());
+        Criteria criteria = session().createCriteria(Offer.class);
+        criteria.createAlias("user","u");
+        criteria.add(Restrictions.eq("u.enabled",true));
+        criteria.add(Restrictions.eq("u.username",username));
+
+        return criteria.list();
     }
 
-    public boolean update(Offer offer) {
-        BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
-                offer);
 
-        return jdbc.update("update offers set text=:text where id=:id", params) == 1;
-    }
-
-    public void create(Offer offer) {
-        session().save(offer);
+    public void saveOrUpdate(Offer offer) {
+        session().saveOrUpdate(offer);
     }
 
     @Transactional
-    public int[] create(List<Offer> offers) {
+    public void create(List<Offer> offers) {
 
-        SqlParameterSource[] params = SqlParameterSourceUtils
-                .createBatch(offers.toArray());
-
-        return jdbc
-                .batchUpdate(
-                        "insert into offers (username, text) values (:username, :text)",
-                        params);
+        for ( int i=0; i<offers.size(); i++ ) {
+            session().save(offers.get(i));
+            if ( i % 20 == 0 ) { //20, same as the JDBC batch size
+                //flush a batch of inserts and release memory:
+                session().flush();
+                session().clear();
+            }
+        }
     }
 
     public boolean delete(int id) {
