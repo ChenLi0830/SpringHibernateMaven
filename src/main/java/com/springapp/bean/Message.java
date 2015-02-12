@@ -29,11 +29,11 @@ public class Message implements Serializable {
     }
 
     public Message() {
-        this.subject = "Subject goes here";
-        this.content = "Content goes here";
-        this.name = "Name goes here";
-        this.email = "Email goes here";
-        this.username = "Username goes here";
+//        this.subject = "Subject goes here";
+//        this.content = "Content goes here";
+//        this.name = "Name goes here";
+//        this.email = "Email goes here";
+//        this.username = "Username goes here";
     }
 
     public Message(String subject, String content, String name, String email, String username) {
