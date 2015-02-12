@@ -40,4 +40,16 @@
         <webflow-config:flow-location id="message" path="contact-flow.xml"></webflow-config:flow-location>
     </webflow-config:flow-registry>
 
+    <webflow-config:flow-executor id="flowExecutor" flow-registry="flowDefinitionRegistry">
+
+    </webflow-config:flow-executor>
+
+    <bean id="flowHandlerAdapter" class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor"/>
+    </bean>
+
+    <bean id="flowHandlerMapping" class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="flowRegistry" ref="flowDefinitionRegistry"/>
+        <property name="order" value="0"/>
+    </bean>
 </beans>

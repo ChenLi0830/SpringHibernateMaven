@@ -29,6 +29,7 @@
               <security:intercept-url pattern="/offerdeleted" access="isAuthenticated()"></security:intercept-url>
               <security:intercept-url pattern="/logout" access="permitAll"></security:intercept-url>
               <security:intercept-url pattern="/" access="permitAll"></security:intercept-url>
+              <security:intercept-url pattern="/message" access="permitAll"></security:intercept-url>
               <security:intercept-url pattern="/newaccount" access="permitAll"></security:intercept-url>
               <security:intercept-url pattern="/createaccount" access="permitAll"></security:intercept-url>
               <security:intercept-url pattern="/accountcreated" access="permitAll"></security:intercept-url>
