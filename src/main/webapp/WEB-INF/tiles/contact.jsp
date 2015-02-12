@@ -1,16 +1,41 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Chen
-  Date: 15-02-11
-  Time: 9:46 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<h2>Send your message here. </h2>
-</body>
-</html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+
+<sf:form method="post" commandName="message">
+
+  <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
+
+  <table class="formtable">
+    <tr>
+      <td class="label">Your name:</td>
+      <td><sf:input class="control" type="text" path="name"/><br/>
+
+        <div class="error"><sf:errors path="name"/></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">Your email:</td>
+      <td><sf:input class="control" type="text" path="email"/><br/>
+        <div class="error"><sf:errors path="email"/></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">Subject:</td>
+      <td><sf:input class="control" type="text" path="subject"/><br/>
+
+        <div class="error"><sf:errors path="subject"></sf:errors></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">Your message:</td>
+      <td><sf:textarea class="control" type="text" path="content"/><br/>
+        <div class="error"><sf:errors path="content"></sf:errors></div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"></td>
+      <td><input class="control" value="Create message" type="submit"/></td>
+    </tr>
+  </table>
+</sf:form>

@@ -1,13 +1,14 @@
 package com.springapp.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Chen on 15-02-12.
  */
 @Entity
 @Table(name = "messages")
-public class Message {
+public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -25,6 +26,14 @@ public class Message {
 
     public String getSubject() {
         return subject;
+    }
+
+    public Message() {
+        this.subject = "Subject goes here";
+        this.content = "Content goes here";
+        this.name = "Name goes here";
+        this.email = "Email goes here";
+        this.username = "Username goes here";
     }
 
     public Message(String subject, String content, String name, String email, String username) {
