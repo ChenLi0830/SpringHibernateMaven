@@ -1,7 +1,9 @@
 package com.springapp.service;
 
+import com.springapp.bean.Message;
 import com.springapp.bean.Offer;
 import com.springapp.bean.User;
+import com.springapp.dao.MessagesDao;
 import com.springapp.dao.OffersDao;
 import com.springapp.dao.UsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class UsersService {
     @Autowired
     private UsersDao usersDao;
 
+    @Autowired
+    private MessagesDao messagesDao;
+
     public void createUser(User user) {
         usersDao.create(user);
 //        offersDao.saveOrUpdate(offer);
@@ -31,4 +36,9 @@ public class UsersService {
     public List<User> getAllUsers() {
         return usersDao.getAllUsers();
     }
+
+    public void sendMessage(Message message){
+        messagesDao.saveOrUpdate(message);
+    }
+
 }
