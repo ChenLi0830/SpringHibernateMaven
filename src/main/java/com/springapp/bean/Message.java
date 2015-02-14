@@ -1,6 +1,10 @@
 package com.springapp.bean;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -12,13 +16,19 @@ public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Size(min=5,max=100)
     private String subject;
+    @Size(min=5,max=1000)
     private String content;
 
     //Name of user sending the message
+    @Size(max = 60, min = 3, message = "Name must be between 3 and 30 characters long.")
     private String name;
 
+
     //Sender's email address
+    @NotBlank
+    @Email
     private String email;
 
     //Message sending TO this user
