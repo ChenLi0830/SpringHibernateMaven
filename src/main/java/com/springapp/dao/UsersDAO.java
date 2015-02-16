@@ -49,4 +49,10 @@ public class UsersDao {
     public List<User> getAllUsers() {
         return session().createQuery("from User").list();
     }
+
+    public User getUser(String username) {
+        Criteria criteria = session().createCriteria(User.class);
+        criteria.add(Restrictions.eq("username",username));
+        return (User) criteria.uniqueResult();
+    }
 }

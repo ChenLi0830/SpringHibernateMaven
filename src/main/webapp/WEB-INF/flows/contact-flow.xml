@@ -8,6 +8,9 @@
 
       <view-state id="showContactForm" model="message">
             <on-entry>
+                  <set name="requestScope.thisUser" value="usersService.getUser(currentUser?.name)"></set>
+                  <set name="flowScope.fromName" value="thisUser?.name"></set>
+                  <set name="flowScope.fromEmail" value="thisUser?.email"></set>
                   <set name="message.username" value="requestParameters.uid"></set>
             </on-entry>
             <transition on="send" to="sendMessage"></transition>

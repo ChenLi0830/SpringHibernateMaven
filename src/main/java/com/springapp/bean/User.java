@@ -9,10 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable{
     @Id
     @NotBlank(message = "User name cannot be blank.")
     @Size(max = 30, min = 3, message = "Username must be between 3 and 30 characters long.")

@@ -9,14 +9,14 @@
   <table class="formtable">
     <tr>
       <td class="label">Your name:</td>
-      <td><sf:input class="control" type="text" path="name"/><br/>
+      <td><sf:input class="control" type="text" path="name" value="${fromName}"/><br/>
 
         <div class="error"><sf:errors path="name"/></div>
       </td>
     </tr>
     <tr>
       <td class="label">Your email:</td>
-      <td><sf:input class="control" type="text" path="email"/><br/>
+      <td><sf:input class="control" type="text" path="email" value="${fromEmail}"/><br/>
         <div class="error"><sf:errors path="email"/></div>
       </td>
     </tr>
