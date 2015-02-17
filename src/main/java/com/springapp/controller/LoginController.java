@@ -1,5 +1,6 @@
 package com.springapp.controller;
 
+import com.springapp.bean.Message;
 import com.springapp.bean.User;
 import com.springapp.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Chen on 15-01-18.
@@ -74,5 +80,21 @@ public class LoginController {
 
         System.out.println(user);
         return "accountcreated";
+    }
+
+    @RequestMapping(value = "/getmessages",method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Map<String, Object> getMessages(Principal principal){
+        List<Message> messageList = null;
+        if (principal == null){
+            messageList = new ArrayList<Message>();
+        } else {
+            String username = principal.getName();
+            messageList = usersService.getMessages(username);
+        }
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("number",messageList.size());
+        data.put("messages",messageList);
+        return data;
     }
 }
