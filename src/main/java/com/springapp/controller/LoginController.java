@@ -41,6 +41,12 @@ public class LoginController {
         return "logout";
     }
 
+    @RequestMapping("/messages")
+    public String showMessages() {
+
+        return "messages";
+    }
+
     @RequestMapping("/admin")
     public String showAdmin(Model model) {
         List<User> users = usersService.getAllUsers();

@@ -81,3 +81,17 @@ a.title {
     color: white;
     font-size: 35px;
 }
+
+span.subject{
+    font-size: large;
+    color: brown;
+}
+
+span.messageBody{
+    display: block;
+    font-style: italic;
+}
+
+div.message{
+    margin: 10px;
+}

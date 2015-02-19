@@ -21,7 +21,7 @@
 </table>
 
 
-<script>
+<script type="text/javascript">
     function updateLink(data) {
         $("#numberMessges").text(data.number);
 //        alert(data.number);

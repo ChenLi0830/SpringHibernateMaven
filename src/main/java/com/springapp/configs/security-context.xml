@@ -28,6 +28,7 @@
               <security:intercept-url pattern="/offercreated" access="isAuthenticated()"></security:intercept-url>
               <security:intercept-url pattern="/offerdeleted" access="isAuthenticated()"></security:intercept-url>
               <security:intercept-url pattern="/getmessages" access="isAuthenticated()"></security:intercept-url>
+              <security:intercept-url pattern="/messages" access="isAuthenticated()"></security:intercept-url>
               <security:intercept-url pattern="/logout" access="permitAll"></security:intercept-url>
               <security:intercept-url pattern="/" access="permitAll"></security:intercept-url>
               <security:intercept-url pattern="/message" access="permitAll"></security:intercept-url>
@@ -39,7 +40,7 @@
               <security:intercept-url pattern="/login" access="permitAll"></security:intercept-url>
               <security:intercept-url pattern="/test" access="permitAll"></security:intercept-url>
               <security:intercept-url pattern="/**" access="denyAll"></security:intercept-url>
-              <security:form-login login-page="/login" authentication-failure-url="/login?error=true"/>
+              <security:form-login login-page="/login" authentication-failure-url="/login?error=true" default-target-url="/" always-use-default-target="true"/>
               <security:logout logout-success-url="/logout"/>
        </security:http>
 
