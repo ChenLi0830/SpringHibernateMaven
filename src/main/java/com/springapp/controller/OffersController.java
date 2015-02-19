@@ -31,14 +31,6 @@ public class OffersController {
         return "home";
     }
 
-    @RequestMapping("/offers")
-    public String printWelcome(ModelMap model) {
-        List<Offer> offerList = offersService.getCurrent();
-
-        model.addAttribute("message", "Spring dispatcher servlet starts");
-        model.addAttribute("offerList", offerList);
-        return "offers";
-    }
 
     @RequestMapping("/createoffer")
     public String createOffer(Model model,Principal principal) {

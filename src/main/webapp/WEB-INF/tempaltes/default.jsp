@@ -11,34 +11,35 @@
 
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 
-  <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
+    <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
 
-  <link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css"/>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-1.11.2.min.js"></script>
+    <link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/script/jquery-1.11.2.min.js"></script>
 
-  <tiles:insertAttribute name="includes"/>
+    <tiles:insertAttribute name="includes"/>
 
 </head>
 <body>
 
 <div>
 
-  <div class="header">
-  <tiles:insertAttribute name="header"/>
-  </div>
+    <div class="header">
+        <tiles:insertAttribute name="header"/>
+    </div>
 
-  <div class="content">
-  <tiles:insertAttribute name="content"/>
-  </div>
+    <tiles:insertAttribute name="toolbar"/>
 
-  <hr/>
-  <div class="footer">
-  <tiles:insertAttribute name="footer"/>
-  </div>
+    <div class="content">
+        <tiles:insertAttribute name="content"/>
+    </div>
+
+    <hr/>
+    <div class="footer">
+        <tiles:insertAttribute name="footer"/>
+    </div>
 </div>
-
 
 
 </body>
