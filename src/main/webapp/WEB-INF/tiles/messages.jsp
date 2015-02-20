@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<div id="messages">
 
+<div id="messages">
 </div>
 
 <script type="text/javascript">
@@ -26,9 +26,24 @@
       nameSpan.setAttribute("class","messageBody");
       nameSpan.appendChild(document.createTextNode(message.name + "("+message.email+")"));
 
+      var replyForm = document.createElement("form");
+      replyForm.setAttribute("class","replyForm");
+
+      var textArea = document.createElement("textarea");
+      textArea.setAttribute("class","textarea");
+
+      var replyButton = document.createElement("input");
+      replyButton.setAttribute("class","replyButton");
+      replyButton.setAttribute("type","button");
+      replyButton.setAttribute("value","Reply");
+
+      replyForm.appendChild(textArea);
+      replyForm.appendChild(replyButton);
+
       messageDiv.appendChild(subjectSpan);
       messageDiv.appendChild(contentSpan);
       messageDiv.appendChild(nameSpan);
+      messageDiv.appendChild(replyForm);
 
       $("div#messages").append(messageDiv);
     }
@@ -39,7 +54,7 @@
   }
   function onLoad() {
     updatePage();
-    window.setInterval(updatePage,5000);
+    window.setInterval(updatePage,10000);
   }
 
   $(document).ready(onLoad);

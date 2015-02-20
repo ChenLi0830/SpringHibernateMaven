@@ -95,3 +95,11 @@ span.messageBody{
 div.message{
     margin: 10px;
 }
+
+form.replyForm{
+    padding: 10px;
+}
+
+input.replyButton{
+    display: block;
+}
