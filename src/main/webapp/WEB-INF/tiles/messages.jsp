@@ -6,8 +6,10 @@
 
 <script type="text/javascript">
 
+  var timer;
   function showReply(i){
     $("#form"+i).toggle();
+    stopTimer();
   }
 
   function showMessages(data) {
@@ -67,7 +69,15 @@
   }
   function onLoad() {
     updatePage();
-    window.setInterval(updatePage,10000);
+    startTimer();
+  }
+
+  function startTimer(){
+    timer = window.setInterval(updatePage,5000);
+  }
+
+  function stopTimer(){
+    window.clearInterval(timer);
   }
 
   $(document).ready(onLoad);
