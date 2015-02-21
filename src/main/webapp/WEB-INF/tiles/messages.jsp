@@ -12,6 +12,10 @@
     stopTimer();
   }
 
+  function sendMessage(i){
+    alert($("#textarea"+i).val());
+  }
+
   function showMessages(data) {
     $("#messages").html("");
     for (var i=0;i<data.messages.length;i++){
@@ -46,11 +50,17 @@
 
       var textArea = document.createElement("textarea");
       textArea.setAttribute("class","textarea");
+      textArea.setAttribute("id","textarea" + i);
 
       var replyButton = document.createElement("input");
       replyButton.setAttribute("class","replyButton");
       replyButton.setAttribute("type","button");
       replyButton.setAttribute("value","Reply");
+      replyButton.onclick = function(j){
+        return function(){
+          sendMessage(j);
+        }
+      }(i);
 
       replyForm.appendChild(textArea);
       replyForm.appendChild(replyButton);
@@ -73,7 +83,7 @@
   }
 
   function startTimer(){
-    timer = window.setInterval(updatePage,5000);
+    timer = window.setInterval(updatePage,10000);
   }
 
   function stopTimer(){
