@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -102,5 +103,22 @@ public class LoginController {
         data.put("number",messageList.size());
         data.put("messages",messageList);
         return data;
+    }
+
+    @RequestMapping(value = "/sendmessage",method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public Map<String, Object> sendMessage(Principal principal, @RequestBody Map<String,Object> data){
+
+        Map<String, Object> returnValue = new HashMap<String, Object>();
+
+        String name = (String) data.get("name");
+        String email = (String) data.get("email");
+        String text = (String) data.get("text");
+
+        System.out.println(name + ", " + email + ", " + text);
+
+        returnValue.put("success", true);
+
+        return returnValue;
     }
 }

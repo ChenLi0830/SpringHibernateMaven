@@ -12,8 +12,28 @@
     stopTimer();
   }
 
-  function sendMessage(i){
-    alert($("#textarea"+i).val());
+  function success(data){
+    alert("success");
+  }
+
+  function error(data){
+    alert("error");
+  }
+
+  function sendMessage(i, name, email){
+//    alert($("#textarea"+i).val());
+    text = ($("#textarea"+i).val());
+//    alert(name + ":" + email);
+
+    $.ajax({
+      "type": 'POST',
+      "url": '<c:url value="/sendmessage" />',
+      "data": JSON.stringify({"text": text, "name": name, "email": email}),
+      "success": success,
+      "error": error,
+      "contentType": "application/json",
+      "dataType": "json"
+    });
   }
 
   function showMessages(data) {
@@ -56,11 +76,11 @@
       replyButton.setAttribute("class","replyButton");
       replyButton.setAttribute("type","button");
       replyButton.setAttribute("value","Reply");
-      replyButton.onclick = function(j){
+      replyButton.onclick = function(j, name, email){
         return function(){
-          sendMessage(j);
+          sendMessage(j, name, email);
         }
-      }(i);
+      }(i, message.name, message.email);
 
       replyForm.appendChild(textArea);
       replyForm.appendChild(replyButton);
