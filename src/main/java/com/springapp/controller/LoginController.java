@@ -114,10 +114,12 @@ public class LoginController {
         String name = (String) data.get("name");
         String email = (String) data.get("email");
         String text = (String) data.get("text");
+        Integer target = (Integer) data.get("target");
 
         System.out.println(name + ", " + email + ", " + text);
 
         returnValue.put("success", true);
+        returnValue.put("target", target);
 
         return returnValue;
     }
