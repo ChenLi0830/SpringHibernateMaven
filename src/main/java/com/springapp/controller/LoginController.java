@@ -6,14 +6,13 @@ import com.springapp.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -29,6 +28,9 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private MailSender mailSender;
 
     @RequestMapping("/login")
     public String showLogin() {
@@ -116,7 +118,18 @@ public class LoginController {
         String text = (String) data.get("text");
         Integer target = (Integer) data.get("target");
 
-        System.out.println(name + ", " + email + ", " + text);
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setFrom("lulugeo@gmail.com");
+        mail.setTo(email);
+        mail.setSubject("Re: " + name + ", your message");
+        mail.setText(text);
+
+        try{
+            mailSender.send(mail);
+        } catch (Exception ex){
+            ex.printStackTrace();
+            System.out.println("Can't send message");
+        }
 
         returnValue.put("success", true);
         returnValue.put("target", target);
